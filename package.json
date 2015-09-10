@@ -1,8 +1,8 @@
 {
-  "name": "elite",
-  "version": "0.0.0",
+  "name": "elite-trading",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
-      "readline" : "*"
+      "readline" : "1.0.1"
   }
 }
