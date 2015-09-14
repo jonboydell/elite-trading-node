@@ -9,6 +9,7 @@ print_status();
 
 rl.on('line', function(line) {
     if (line == "all") {
+        pretty_print_headers();
         for (location of markets.keys()) {
             var recommendations = get_recommended_buys_at_location(location, markets, cargo, capital);
             for (recommendation of recommendations) {
@@ -122,13 +123,28 @@ function print_recommendation(recommendation, cargo) {
 }
 
 function space_out(str, column_length) {
+    str = ""+str;
     var n = column_length - str.length;
     var x = "";
     for (var i = 0; i < n; i++)
     {
         x = x + " ";
     }
-    return x;
+    return str + x;
+}
+
+function pretty_print_headers() {
+    console.log("%s%s%s",
+            space_out("location", 20),
+            space_out("destination", 20),
+            space_out("commodity", 20),
+            space_out("buy", 8),
+            space_out("sell", 8),
+            space_out("total buy", 10),
+            space_out("total sell", 10),
+            space_out("profit", 8)
+    );
+    console.log("------------------------------------------------------------------------------------------------------------");
 }
 
 function pretty_print_recommendation(recommendation, cargo) {
@@ -147,22 +163,14 @@ function pretty_print_recommendation(recommendation, cargo) {
         var total_profit = recommendation.max_price_delta;
 
         console.log("%s%s%s",
-                recommendation.location,
                 space_out(recommendation.location, 20),
-                recommendation.destination,
                 space_out(recommendation.destination, 20),
-                recommendation.commodity,
                 space_out(recommendation.commodity, 20),
-                ""+recommendation.buy,
-                space_out(""+recommendation.buy, 8),
-                ""+recommendation.sell,
-                space_out(""+recommendation.sell, 8),
-                ""+total_buy_value,
-                space_out(""+total_buy_value, 8),
-                ""+total_sell_value,
-                space_out(""+total_sell_value, 8),
-                ""+total_profit,
-                space_out(""+total_profit, 8)
+                space_out(recommendation.buy, 8),
+                space_out(recommendation.sell, 8),
+                space_out(total_buy_value, 10),
+                space_out(total_sell_value, 10),
+                space_out(total_profit, 8)
         );
 
     }

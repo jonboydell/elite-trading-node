@@ -1,6 +1,12 @@
-Yakabugai->Alrai Sector KH-V B2-1->Eravate
-Yakabugai->Alrai Sector KH-V B2-1->LHS-3447
-Yakabugai->Alrai Sector KH-V B2-1->Kini->Frigaha
-Kremainn->Alrai Sector MC-V B2-7->Potriti->Yakabugai
-Eravate->Kini->Frigaha
-Yakabugai->Chamunda
+[
+    ["yakabugai", "alrai sector kh-v b2-1"],
+    ["alrai sector kh-v b2-1", "eravate"],
+    ["alrai sector kh-v b2-1", "lhs-3447"],
+    ["alrai sector kh-v b2-1", "kini"],
+    ["kini", "frigaha"],
+    ["kremainn", "alrai sector mc-v b2-7"],
+    ["alrai sector mc-v b2-7", "potriti"],
+    ["potriti", "yakabugai"],
+    ["eravate", "kini"],
+    ["yakabugai", "chamunda"]
+]
