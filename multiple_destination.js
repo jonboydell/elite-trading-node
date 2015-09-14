@@ -12,14 +12,14 @@ rl.on('line', function(line) {
         for (location of markets.keys()) {
             var recommendations = get_recommended_buys_at_location(location, markets, cargo, capital);
             for (recommendation of recommendations) {
-                print_recommendation(recommendation, cargo);
+                pretty_print_recommendation(recommendation, cargo);
             }
         }
     } else if (line.startsWith("l")) {
         var location = line.slice(line.indexOf(" ")+1);
         var recommendations = get_recommended_buys_at_location(location, markets, cargo, capital);
         for (recommendation of recommendations) {
-            print_recommendation(recommendation, cargo);
+            pretty_print_recommendation(recommendation, cargo);
         }
     } else if (line.startsWith("cargo")) {
         cargo = line.slice(line.indexOf(" ")+1);
@@ -119,4 +119,52 @@ function print_recommendation(recommendation, cargo) {
                 recommendation.max_price_delta
         );
     }
+}
+
+function space_out(str, column_length) {
+    var n = column_length - str.length;
+    var x = "";
+    for (var i = 0; i < n; i++)
+    {
+        x = x + " ";
+    }
+    return x;
+}
+
+function pretty_print_recommendation(recommendation, cargo) {
+    var a = 20;
+    var b = 20;
+    var c = 20;
+    var d = 20;
+    var e = 8;
+    var f = 8;
+    var g = 8;
+
+    if(recommendation.location) {
+
+        var total_buy_value = recommendation.buy * cargo;
+        var total_sell_value = recommendation.sell * cargo;
+        var total_profit = recommendation.max_price_delta;
+
+        console.log("%s%s%s",
+                recommendation.location,
+                space_out(recommendation.location, 20),
+                recommendation.destination,
+                space_out(recommendation.destination, 20),
+                recommendation.commodity,
+                space_out(recommendation.commodity, 20),
+                ""+recommendation.buy,
+                space_out(""+recommendation.buy, 8),
+                ""+recommendation.sell,
+                space_out(""+recommendation.sell, 8),
+                ""+total_buy_value,
+                space_out(""+total_buy_value, 8),
+                ""+total_sell_value,
+                space_out(""+total_sell_value, 8),
+                ""+total_profit,
+                space_out(""+total_profit, 8)
+        );
+
+    }
+
 }
