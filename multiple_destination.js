@@ -107,14 +107,16 @@ function print_status() {
 }
 
 function print_recommendation(recommendation, cargo) {
-    console.log("%s->%s %s (b:%d, s:%d)",
-            recommendation.location,
-            recommendation.destination,
-            recommendation.commodity,
-            recommendation.buy,
-            recommendation.sell,
-            recommendation.buy * cargo,
-            recommendation.sell * cargo,
-            recommendation.max_price_delta
-    );
+    if(recommendation.location) {
+        console.log("%s->%s %s (b:%d, s:%d)",
+                recommendation.location,
+                recommendation.destination,
+                recommendation.commodity,
+                recommendation.buy,
+                recommendation.sell,
+                recommendation.buy * cargo,
+                recommendation.sell * cargo,
+                recommendation.max_price_delta
+        );
+    }
 }
