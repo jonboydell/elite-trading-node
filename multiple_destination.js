@@ -3,50 +3,32 @@ var readline = require('readline');
 var rl = readline.createInterface(process.stdin, process.stdout);
 var markets = load_markets("./market");
 
-var cargo = 0;
-var capital = 0;
+var cargo = 4;
+var capital = 1000;
+print_status();
 
 rl.on('line', function(line) {
     if (line == "all") {
         for (location of markets.keys()) {
             var recommendations = get_recommended_buys_at_location(location, markets, cargo, capital);
             for (recommendation of recommendations) {
-                console.log("%s->%s %s (b:%d, s:%d)",
-                        recommendation.location,
-                        recommendation.destination,
-                        recommendation.commodity,
-                        recommendation.buy,
-                        recommendation.sell,
-                        recommendation.buy * 6,
-                        recommendation.sell * 6,
-                        recommendation.max_price_delta * 6
-                );
+                pretty_print_recommendation(recommendation, cargo);
             }
         }
     } else if (line.startsWith("l")) {
         var location = line.slice(line.indexOf(" ")+1);
         var recommendations = get_recommended_buys_at_location(location, markets, cargo, capital);
         for (recommendation of recommendations) {
-            console.log("%s->%s %s (b:%d, s:%d)",
-                    recommendation.location,
-                    recommendation.destination,
-                    recommendation.commodity,
-                    recommendation.buy,
-                    recommendation.sell,
-                    recommendation.buy * 6,
-                    recommendation.sell * 6,
-                    recommendation.max_price_delta * 6
-            );
+            pretty_print_recommendation(recommendation, cargo);
         }
     } else if (line.startsWith("cargo")) {
         cargo = line.slice(line.indexOf(" ")+1);
-        console.log("cargo:"+cargo);
+        print_status();
     } else if (line.startsWith("capital")) {
         capital = line.slice(line.indexOf(" ")+1);
-        console.log("capital:"+capital);
+        print_status();
     } else if (line.startsWith("status")) {
-        console.log("cargo:"+cargo);
-        console.log("capital:"+capital);
+        print_status();
     }
 }).on('close',function() {
 
@@ -95,15 +77,12 @@ function get_recommended_buys_at_location(location, markets, max_cargo, max_buy_
                 if (destination_location_price.sell > 0) {
                     if (buy_location_prices.has(commodity) && buy_location_prices.get(commodity).buy > 0) {
                         var total_buy_value = buy_location_prices.get(commodity).buy * max_cargo;
-                        var price_delta = destination_location_price.sell - buy_location_prices.get(commodity).buy;
-                        if (price_delta > 0) {
-                            //console.log("%s %d %d %d",
-                            //        commodity,
-                            //        buy_location_prices.get(commodity).buy,
-                            //        destination_location_price.sell,
-                            //        price_delta
-                            //    );
-                        }
+                        var total_sell_value = destination_location_price.sell * max_cargo;
+                        var price_delta = total_sell_value - total_buy_value;
+
+                        // @todo: this should actually be based on the total_sell_value, rather than the max_price_delta
+                        // @todo: OR should it be biggest total profit (total_sell_value - total_buy_value)
+
                         if (price_delta > max_price_delta && total_buy_value < max_buy_value) {
                             max_price_delta = price_delta;
                             max_buy.location = location;
@@ -120,4 +99,72 @@ function get_recommended_buys_at_location(location, markets, max_cargo, max_buy_
         }
     }
     return max_buys;
+}
+
+function print_status() {
+    console.log("cargo:"+cargo);
+    console.log("capital:"+capital);
+}
+
+function print_recommendation(recommendation, cargo) {
+    if(recommendation.location) {
+        console.log("%s->%s %s (b:%d, s:%d)",
+                recommendation.location,
+                recommendation.destination,
+                recommendation.commodity,
+                recommendation.buy,
+                recommendation.sell,
+                recommendation.buy * cargo,
+                recommendation.sell * cargo,
+                recommendation.max_price_delta
+        );
+    }
+}
+
+function space_out(str, column_length) {
+    var n = column_length - str.length;
+    var x = "";
+    for (var i = 0; i < n; i++)
+    {
+        x = x + " ";
+    }
+    return x;
+}
+
+function pretty_print_recommendation(recommendation, cargo) {
+    var a = 20;
+    var b = 20;
+    var c = 20;
+    var d = 20;
+    var e = 8;
+    var f = 8;
+    var g = 8;
+
+    if(recommendation.location) {
+
+        var total_buy_value = recommendation.buy * cargo;
+        var total_sell_value = recommendation.sell * cargo;
+        var total_profit = recommendation.max_price_delta;
+
+        console.log("%s%s%s",
+                recommendation.location,
+                space_out(recommendation.location, 20),
+                recommendation.destination,
+                space_out(recommendation.destination, 20),
+                recommendation.commodity,
+                space_out(recommendation.commodity, 20),
+                ""+recommendation.buy,
+                space_out(""+recommendation.buy, 8),
+                ""+recommendation.sell,
+                space_out(""+recommendation.sell, 8),
+                ""+total_buy_value,
+                space_out(""+total_buy_value, 8),
+                ""+total_sell_value,
+                space_out(""+total_sell_value, 8),
+                ""+total_profit,
+                space_out(""+total_profit, 8)
+        );
+
+    }
+
 }
