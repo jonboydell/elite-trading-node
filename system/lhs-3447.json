@@ -1,3 +1,4 @@
 {
-    "stations": [ "yapping_enterprise" ]
+    "stations": [ "yapping_enterprise" ],
+    "type" : [ "extraction", "agriculture" ]
 }

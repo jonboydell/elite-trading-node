@@ -2,6 +2,8 @@ var fs = require('fs');
 var readline = require('readline');
 var rl = readline.createInterface(process.stdin, process.stdout);
 var markets = load_markets("./market");
+var systems = load_systems("./system");
+var routes = require("./routes.json");
 
 var cargo = 4;
 var capital = 1000;
@@ -30,6 +32,32 @@ rl.on('line', function(line) {
         print_status();
     } else if (line.startsWith("status")) {
         print_status();
+    } else if (line.startsWith("show_commodity")) {
+        input_commodity = line.slice(line.indexOf(" ")+1);
+        for (location of markets.keys()) {
+            var location_prices = markets.get(location);
+            for (commodity of location_prices.keys()) {
+                if(input_commodity == commodity) {
+                    console.log(location + " buy=" + location_prices.get(commodity).buy + " sell=" + location_prices.get(commodity).sell);
+                }
+            }
+        }
+    } else if (line.startsWith("show_market_buy")) {
+        input_market = line.slice(line.indexOf(" ")+1);
+        var location_prices = markets.get(input_market);
+        for (commodity of location_prices.keys()) {
+            if (location_prices.get(commodity).buy > 0 ) {
+                console.log(commodity + " buy=" + location_prices.get(commodity).buy + " sell=" + location_prices.get(commodity).sell);
+            }
+        }
+    }else if (line.startsWith("show_market_sell")) {
+        input_market = line.slice(line.indexOf(" ")+1);
+        var location_prices = markets.get(input_market);
+        for (commodity of location_prices.keys()) {
+            if (location_prices.get(commodity).sell > 0 ) {
+                console.log(commodity + " buy=" + location_prices.get(commodity).buy + " sell=" + location_prices.get(commodity).sell);
+            }
+        }
     }
 }).on('close',function() {
 
@@ -45,6 +73,20 @@ function load_markets(market_directory) {
         parse_market_to_map(markets, market_name, market_prices);
     });
     return markets;
+}
+
+function load_systems(system_directory) {
+    var systems = new Map();
+    fs.readdirSync(system_directory).forEach(function(system_filename) {
+        var qualified_system_filename = system_directory + "/" + system_filename;
+        var stations = JSON.parse(fs.readFileSync(qualified_system_filename)).stations;
+
+        system_name = system_filename.substring(0, system_filename.indexOf(".json"));
+        for (station of stations) {
+            systems.set(station, system_name);
+        }
+    });
+    return systems;
 }
 
 function parse_market_to_map(market_map, market_name, market_prices) {
@@ -79,7 +121,7 @@ function get_recommended_buys_at_location(location, markets, max_cargo, max_buy_
                     if (buy_location_prices.has(commodity) && buy_location_prices.get(commodity).buy > 0) {
                         var total_buy_value = buy_location_prices.get(commodity).buy * max_cargo;
                         var total_sell_value = destination_location_price.sell * max_cargo;
-                        var price_delta = total_sell_value - total_buy_value;
+                        var price_delta = destination_location_price.sell - buy_location_prices.get(commodity).buy;
 
                         // @todo: this should actually be based on the total_sell_value, rather than the max_price_delta
                         // @todo: OR should it be biggest total profit (total_sell_value - total_buy_value)
@@ -117,7 +159,7 @@ function print_recommendation(recommendation, cargo) {
                 recommendation.sell,
                 recommendation.buy * cargo,
                 recommendation.sell * cargo,
-                recommendation.max_price_delta
+                recommendation.max_price_delta * cargo
         );
     }
 }
@@ -135,8 +177,8 @@ function space_out(str, column_length) {
 
 function pretty_print_headers() {
     console.log("%s%s%s",
-            space_out("location", 20),
-            space_out("destination", 20),
+            space_out("location", 40),
+            space_out("destination", 40),
             space_out("commodity", 20),
             space_out("buy", 8),
             space_out("sell", 8),
@@ -160,11 +202,11 @@ function pretty_print_recommendation(recommendation, cargo) {
 
         var total_buy_value = recommendation.buy * cargo;
         var total_sell_value = recommendation.sell * cargo;
-        var total_profit = recommendation.max_price_delta;
+        var total_profit = recommendation.max_price_delta * cargo;
 
         console.log("%s%s%s",
-                space_out(recommendation.location, 20),
-                space_out(recommendation.destination, 20),
+                space_out(recommendation.location + " " + systems.get(recommendation.location), 40),
+                space_out(recommendation.destination + " " + systems.get(recommendation.destination), 40),
                 space_out(recommendation.commodity, 20),
                 space_out(recommendation.buy, 8),
                 space_out(recommendation.sell, 8),

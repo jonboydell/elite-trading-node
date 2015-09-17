@@ -1,3 +1,4 @@
 {
-    "stations": [ "wohler_terminal" ]
+    "stations": [ "wohler_terminal" ],
+    "type" : [ "refinery", "industrial" ]
 }
