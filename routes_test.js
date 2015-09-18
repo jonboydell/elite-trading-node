@@ -1,3 +1,4 @@
+#!/Users/jon.boydell/.nman/node/v4.0.0/bin/node
 var routes = require("./routes.json");
 
 var start;

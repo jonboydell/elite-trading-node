@@ -19,6 +19,7 @@
 "Superconductors",
 "Beer",
 "Liquor",
+"Narcotics",
 "Tobacco",
 "Wine",
 "Atmospheric Processors",
@@ -30,6 +31,7 @@
 "Water Purifiers",
 "Agri-Medicines",
 "Basic Medicines",
+"Combat Stabilisers",
 "Performance Enhancers",
 "Progenitor Cells",
 "Aluminium",
@@ -58,6 +60,7 @@
 "Rutile",
 "Urnainite",
 "Sap 8 Core Container",
+"Imperial Slaves",
 "Advanced Catalysers",
 "Animal Monitors",
 "Aquaponic Systems",
@@ -74,6 +77,8 @@
 "Biowaste",
 "Chemical Waste",
 "Scrap",
+"Battle Weapons",
 "Non-lethal Weapons",
+"Personal Weapons",
 "Reactive Armour"
 ]
