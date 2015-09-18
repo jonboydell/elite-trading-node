@@ -1,4 +1,4 @@
 {
-    "stations": [ "sylvester_city", "ackerman_ring" ],
+    "stations": [ "sylvester_city", "ackerman_ring", "mcmahon_dock" ],
     "type" : [ "industrial", "agriculture" ]
 }

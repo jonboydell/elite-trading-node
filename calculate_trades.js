@@ -1,3 +1,4 @@
+#!/Users/jon.boydell/.nman/node/v4.0.0/bin/node
 var fs = require('fs');
 var readline = require('readline');
 var rl = readline.createInterface(process.stdin, process.stdout);
@@ -10,58 +11,117 @@ var capital = 1000;
 print_status();
 
 rl.on('line', function(line) {
-    if (line == "all") {
-        pretty_print_headers();
-        for (location of markets.keys()) {
-            var recommendations = get_recommended_buys_at_location(location, markets, cargo, capital);
-            for (recommendation of recommendations) {
-                pretty_print_recommendation(recommendation, cargo);
-            }
-        }
-    } else if (line.startsWith("l")) {
-        var location = line.slice(line.indexOf(" ")+1);
-        var recommendations = get_recommended_buys_at_location(location, markets, cargo, capital);
-        for (recommendation of recommendations) {
-            pretty_print_recommendation(recommendation, cargo);
-        }
-    } else if (line.startsWith("cargo")) {
-        cargo = line.slice(line.indexOf(" ")+1);
-        print_status();
-    } else if (line.startsWith("capital")) {
-        capital = line.slice(line.indexOf(" ")+1);
-        print_status();
-    } else if (line.startsWith("status")) {
-        print_status();
-    } else if (line.startsWith("show_commodity")) {
-        input_commodity = line.slice(line.indexOf(" ")+1);
-        for (location of markets.keys()) {
-            var location_prices = markets.get(location);
-            for (commodity of location_prices.keys()) {
-                if(input_commodity == commodity) {
-                    console.log(location + " buy=" + location_prices.get(commodity).buy + " sell=" + location_prices.get(commodity).sell);
+    var components = line.split(" ");
+    var command = components[0];
+    if ("show" == command) {
+        var subject = components[1];
+        if ("all" == subject) {
+            pretty_print_headers();
+            for (location of markets.keys()) {
+                var recommendations = get_recommended_buys_at_location(location, markets, cargo, capital);
+                for (recommendation of recommendations) {
+                    pretty_print_recommendation(recommendation, cargo);
                 }
             }
-        }
-    } else if (line.startsWith("show_market_buy")) {
-        input_market = line.slice(line.indexOf(" ")+1);
-        var location_prices = markets.get(input_market);
-        for (commodity of location_prices.keys()) {
-            if (location_prices.get(commodity).buy > 0 ) {
-                console.log(commodity + " buy=" + location_prices.get(commodity).buy + " sell=" + location_prices.get(commodity).sell);
+        } else if ("market" == subject) {
+            var location = components[2];
+            if (markets.has(location)) {
+                pretty_print_headers();
+                var recommendations = get_recommended_buys_at_location(location, markets, cargo, capital);
+                for (recommendation of recommendations) {
+                    pretty_print_recommendation(recommendation, cargo);
+                }
+            } else {
+                console.log("location doesn't exist ", location);
             }
-        }
-    }else if (line.startsWith("show_market_sell")) {
-        input_market = line.slice(line.indexOf(" ")+1);
-        var location_prices = markets.get(input_market);
-        for (commodity of location_prices.keys()) {
-            if (location_prices.get(commodity).sell > 0 ) {
-                console.log(commodity + " buy=" + location_prices.get(commodity).buy + " sell=" + location_prices.get(commodity).sell);
+        } else if ("commodity" == subject) {
+            input_commodity = components[2]
+
+            console.log("%s",
+                space_out("location", 25),
+                space_out("buy", 10),
+                space_out("sell", 10));
+
+            console.log("----------------------------------------");
+
+            for (location of markets.keys()) {
+                var location_prices = markets.get(location);
+                for (commodity of location_prices.keys()) {
+                    if(input_commodity == commodity) {
+                        console.log("%s",
+                            space_out(location, 25),
+                            space_out(location_prices.get(commodity).buy, 10),
+                            space_out(location_prices.get(commodity).sell, 10));
+                    }
+                }
             }
+        } else if ("market_buy" == subject) {
+
+            location = components[2];
+
+            if (market_exists(location, function() {
+                var location_prices = markets.get(location);
+                console.log("%s",
+                    space_out("commodity", 25),
+                    space_out("buy", 10),
+                    space_out("sell", 10));
+
+                console.log("----------------------------------------");
+
+                for (commodity of location_prices.keys()) {
+                    if (location_prices.get(commodity).buy > 0 ) {
+                        console.log("%s",
+                            space_out(commodity, 25),
+                            space_out(location_prices.get(commodity).buy, 10),
+                            space_out(location_prices.get(commodity).sell, 10));
+                    }
+                }
+            }));
+        } else if ("market_sell" == subject) {
+
+            location = components[2];
+
+            if (market_exists(location, function() {
+                var location_prices = markets.get(location);
+                console.log("%s",
+                    space_out("commodity", 25),
+                    space_out("buy", 10),
+                    space_out("sell", 10));
+
+                console.log("----------------------------------------");
+
+                for (commodity of location_prices.keys()) {
+                    if (location_prices.get(commodity).sell > 0 ) {
+                        console.log("%s",
+                            space_out(commodity, 25),
+                            space_out(location_prices.get(commodity).buy, 10),
+                            space_out(location_prices.get(commodity).sell, 10));                    }
+                }
+            }));
+        } else {
+            console.log("unknown option for sell command, try 'all, commodity <name>, market <name>, market_sell <name>, market_buy <name>'");
         }
+    } else if ("cargo" == command) {
+        cargo = components[1];
+        print_status();
+    } else if ("capital" == command) {
+        capital = components[1]
+        print_status();
+    } else {
+        console.log("unknown command, try 'show all'");
     }
+
 }).on('close',function() {
 
 });
+
+function market_exists(market_name, fn) {
+    if (markets.has(market_name)) {
+        fn();
+    } else {
+        console.log("Market doesn't exist ", market_name);
+    }
+}
 
 function load_markets(market_directory) {
     var markets = new Map();
@@ -190,13 +250,6 @@ function pretty_print_headers() {
 }
 
 function pretty_print_recommendation(recommendation, cargo) {
-    var a = 20;
-    var b = 20;
-    var c = 20;
-    var d = 20;
-    var e = 8;
-    var f = 8;
-    var g = 8;
 
     if(recommendation.location) {
 
