@@ -35,7 +35,10 @@ rl.on('line', function(line) {
                 console.log("location doesn't exist ", location);
             }
         } else if ("commodity" == subject) {
-            input_commodity = components[2]
+            input_commodity = components[2];
+            if (components[3]) {
+                input_commodity = input_commodity + " " + components[3];
+            }
 
             console.log("%s",
                 space_out("location", 25),
