@@ -1,3 +1,4 @@
+#!/Users/jon.boydell/.nman/node/v4.0.0/bin/node
 var commodities = require("./commodity_list.json");
 var readline = require('readline');
 var fs = require('fs');
