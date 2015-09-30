@@ -2,25 +2,35 @@
 var commodities = require("./commodity_list.json");
 var readline = require('readline');
 var fs = require('fs');
-var rl = readline.createInterface(process.stdin, process.stdout);
 
 var existing = false;
-
 var location_name;
+var location_file_name;
 
-    process.argv.forEach(function (val, index, array) {
-        if (index == 2) {
-            location_name = val;
+process.argv.forEach(function (val, index, array) {
+    if (index == 2) {
+        location_name = val;
+        if (location_name.indexOf(".json") > -1) {
+            location_file_name = "market/" +  location_name;
+            location_name = location_name.replace(".json", "");
+        } else {
+            location_file_name = "market/" + location_name + ".json";
         }
-    });
-
-fs.exists(location_name, function(exists) {
-    if (exists) {
-        main_loop(JSON.parse(fs.readFileSync(location_name)).prices);
-    } else {
-        main_loop();
     }
 });
+
+if (location_name) {
+    var rl = readline.createInterface(process.stdin, process.stdout);
+    fs.exists(location_file_name, function(exists) {
+        if (exists) {
+            main_loop(JSON.parse(fs.readFileSync(location_file_name)).prices);
+        } else {
+            main_loop();
+        }
+    });
+} else {
+    console.log("Usage: enter_prices.js station_name");
+}
 
 function build_prompt(commodity, existing_price)
 {
@@ -103,7 +113,7 @@ function main_loop(existing_prices) {
         location_prices.name = location_name;
         location_prices.prices = prices;
         console.log(location_prices);
-        var filename = location_name.replace(" ", "_");
+        var filename = location_file_name.replace(" ", "_");
 
         fs.writeFile(filename, JSON.stringify(location_prices), function (err) {
             if (err) return console.log(err);

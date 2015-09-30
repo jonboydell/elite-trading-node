@@ -121,16 +121,6 @@ function print_recommendation(recommendation, cargo) {
     }
 }
 
-function space_out(str, column_length) {
-    var n = column_length - str.length;
-    var x = "";
-    for (var i = 0; i < n; i++)
-    {
-        x = x + " ";
-    }
-    return x;
-}
-
 function pretty_print_recommendation(recommendation, cargo) {
     var a = 20;
     var b = 20;

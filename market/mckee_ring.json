@@ -1,1 +1,420 @@
-{"name":"mckee_ring.json","prices":[{"name":"Explosives","buy":"233","sell":"208"},{"name":"Hydrogen Fuel","buy":"94","sell":"90"},{"name":"Mineral Oil","buy":0,"sell":"327"},{"name":"Pesticides","buy":"117","sell":"106"},{"name":"Clothing","buy":0,"sell":"317"},{"name":"Consumer Technology","buy":"6544","sell":"6466"},{"name":"Domestic Appliances","buy":0,"sell":"531"},{"name":"Algae","buy":0,"sell":0},{"name":"Animal Meat","buy":0,"sell":"1623"},{"name":"Coffee","buy":0,"sell":"1546"},{"name":"Fish","buy":0,"sell":"587"},{"name":"Food Cartridges","buy":0,"sell":"142"},{"name":"Fruit and Vegatables","buy":0,"sell":"477"},{"name":"Grain","buy":0,"sell":"345"},{"name":"Synthetic Meat","buy":"184","sell":"171"},{"name":"Tea","buy":0,"sell":"1716"},{"name":"Polymers","buy":"76","sell":"63"},{"name":"Semiconductors","buy":"784","sell":"763"},{"name":"Superconductors","buy":0,"sell":"6601"},{"name":"Beer","buy":0,"sell":"306"},{"name":"Liquor","buy":0,"sell":"858"},{"name":"Narcotics","buy":0,"sell":0},{"name":"Tobacco","buy":0,"sell":0},{"name":"Wine","buy":0,"sell":"399"},{"name":"Atmospheric Processors","buy":0,"sell":0},{"name":"Crop Harvesters","buy":0,"sell":0},{"name":"Marine Equipment","buy":0,"sell":0},{"name":"Microbial Furnaces","buy":"134","sell":"120"},{"name":"Mineral Extractors","buy":0,"sell":0},{"name":"Power Generators","buy":0,"sell":"531"},{"name":"Water Purifiers","buy":0,"sell":"302"},{"name":"Agri-Medicines","buy":"799","sell":"778"},{"name":"Basic Medicines","buy":"254","sell":"237"},{"name":"Combat Stabilisers","buy":0,"sell":0},{"name":"Performance Enhancers","buy":0,"sell":"6601"},{"name":"Progenitor Cells","buy":"6655","sell":"6671"},{"name":"Aluminium","buy":"251","sell":"235"},{"name":"Beryllium","buy":0,"sell":"8588"},{"name":"Cobalt","buy":0,"sell":"784"},{"name":"Copper","buy":"388","sell":"371"},{"name":"Gallium","buy":0,"sell":"5059"},{"name":"Gold","buy":0,"sell":"9219"},{"name":"Indium","buy":0,"sell":"5778"},{"name":"Lithium","buy":0,"sell":"1886"},{"name":"Osmium","buy":0,"sell":"7545"},{"name":"Palladium","buy":0,"sell":"14165"},{"name":"Platinum","buy":0,"sell":"19810"},{"name":"Silver","buy":0,"sell":"5408"},{"name":"Tantalum","buy":0,"sell":"4501"},{"name":"Painite","buy":0,"sell":0},{"name":"Titanium","buy":"903","sell":"879"},{"name":"Uranium","buy":0,"sell":"2619"},{"name":"Bauxite","buy":0,"sell":"153"},{"name":"Bertrandite","buy":0,"sell":"2454"},{"name":"Coltan","buy":0,"sell":"1379"},{"name":"Gallite","buy":0,"sell":"2158"},{"name":"Indite","buy":0,"sell":"2173"},{"name":"Lepidolite","buy":0,"sell":"593"},{"name":"Painite","buy":0,"sell":0},{"name":"Rutile","buy":0,"sell":"332"},{"name":"Urnainite","buy":0,"sell":"895"},{"name":"Sap 8 Core Container","buy":0,"sell":"60360"},{"name":"Imperial Slaves","buy":0,"sell":0},{"name":"Advanced Catalysers","buy":"2746","sell":"2711"},{"name":"Animal Monitors","buy":"182","sell":"170"},{"name":"Aquaponic Systems","buy":"161","sell":"149"},{"name":"Auto-Fabricators","buy":"3531","sell":"3499"},{"name":"Bioreducing Lichen","buy":"915","sell":"890"},{"name":"Computer Components","buy":0,"sell":"673"},{"name":"H.E. Suits","buy":"211","sell":"196"},{"name":"Land Enrichment Systems","buy":"4313","sell":"4260"},{"name":"Resonating Separators","buy":"5755","sell":"5686"},{"name":"Robotics","buy":"1649","sell":"1608"},{"name":"Leather","buy":0,"sell":0},{"name":"Natural Fabrics","buy":0,"sell":0},{"name":"Synthetic Fabrics","buy":"113","sell":"101"},{"name":"Biowaste","buy":"14","sell":"11"},{"name":"Chemical Waste","buy":0,"sell":"108"},{"name":"Scrap","buy":"46","sell":"40"},{"name":"Battle Weapons","buy":0,"sell":0},{"name":"Non-lethal Weapons","buy":"1495","sell":"1457"},{"name":"Personal Weapons","buy":"0","sell":"0"},{"name":"Reactive Armour","buy":"1893","sell":"1869"}]}
+{
+    "name": "mckee_ring",
+    "prices": [
+        {
+            "name": "Explosives",
+            "buy": "233",
+            "sell": "208"
+        },
+        {
+            "name": "Hydrogen Fuel",
+            "buy": "94",
+            "sell": "90"
+        },
+        {
+            "name": "Mineral Oil",
+            "buy": 0,
+            "sell": "327"
+        },
+        {
+            "name": "Pesticides",
+            "buy": "117",
+            "sell": "106"
+        },
+        {
+            "name": "Clothing",
+            "buy": 0,
+            "sell": "317"
+        },
+        {
+            "name": "Consumer Technology",
+            "buy": "6544",
+            "sell": "6466"
+        },
+        {
+            "name": "Domestic Appliances",
+            "buy": 0,
+            "sell": "531"
+        },
+        {
+            "name": "Algae",
+            "buy": 0,
+            "sell": 0
+        },
+        {
+            "name": "Animal Meat",
+            "buy": 0,
+            "sell": "1623"
+        },
+        {
+            "name": "Coffee",
+            "buy": 0,
+            "sell": "1546"
+        },
+        {
+            "name": "Fish",
+            "buy": 0,
+            "sell": "587"
+        },
+        {
+            "name": "Food Cartridges",
+            "buy": 0,
+            "sell": "142"
+        },
+        {
+            "name": "Fruit and Vegatables",
+            "buy": 0,
+            "sell": "477"
+        },
+        {
+            "name": "Grain",
+            "buy": 0,
+            "sell": "345"
+        },
+        {
+            "name": "Synthetic Meat",
+            "buy": "184",
+            "sell": "171"
+        },
+        {
+            "name": "Tea",
+            "buy": 0,
+            "sell": "1716"
+        },
+        {
+            "name": "Polymers",
+            "buy": "76",
+            "sell": "63"
+        },
+        {
+            "name": "Semiconductors",
+            "buy": "784",
+            "sell": "763"
+        },
+        {
+            "name": "Superconductors",
+            "buy": 0,
+            "sell": "6601"
+        },
+        {
+            "name": "Beer",
+            "buy": 0,
+            "sell": "306"
+        },
+        {
+            "name": "Liquor",
+            "buy": 0,
+            "sell": "858"
+        },
+        {
+            "name": "Narcotics",
+            "buy": 0,
+            "sell": 0
+        },
+        {
+            "name": "Tobacco",
+            "buy": 0,
+            "sell": 0
+        },
+        {
+            "name": "Wine",
+            "buy": 0,
+            "sell": "399"
+        },
+        {
+            "name": "Atmospheric Processors",
+            "buy": 0,
+            "sell": 0
+        },
+        {
+            "name": "Crop Harvesters",
+            "buy": 0,
+            "sell": 0
+        },
+        {
+            "name": "Marine Equipment",
+            "buy": 0,
+            "sell": 0
+        },
+        {
+            "name": "Microbial Furnaces",
+            "buy": "134",
+            "sell": "120"
+        },
+        {
+            "name": "Mineral Extractors",
+            "buy": 0,
+            "sell": 0
+        },
+        {
+            "name": "Power Generators",
+            "buy": 0,
+            "sell": "531"
+        },
+        {
+            "name": "Water Purifiers",
+            "buy": 0,
+            "sell": "302"
+        },
+        {
+            "name": "Agri-Medicines",
+            "buy": "799",
+            "sell": "778"
+        },
+        {
+            "name": "Basic Medicines",
+            "buy": "254",
+            "sell": "237"
+        },
+        {
+            "name": "Combat Stabilisers",
+            "buy": 0,
+            "sell": 0
+        },
+        {
+            "name": "Performance Enhancers",
+            "buy": 0,
+            "sell": "6601"
+        },
+        {
+            "name": "Progenitor Cells",
+            "buy": "6655",
+            "sell": "6671"
+        },
+        {
+            "name": "Aluminium",
+            "buy": "251",
+            "sell": "235"
+        },
+        {
+            "name": "Beryllium",
+            "buy": 0,
+            "sell": "8588"
+        },
+        {
+            "name": "Cobalt",
+            "buy": 0,
+            "sell": "784"
+        },
+        {
+            "name": "Copper",
+            "buy": "388",
+            "sell": "371"
+        },
+        {
+            "name": "Gallium",
+            "buy": 0,
+            "sell": "5059"
+        },
+        {
+            "name": "Gold",
+            "buy": 0,
+            "sell": "9219"
+        },
+        {
+            "name": "Indium",
+            "buy": 0,
+            "sell": "5778"
+        },
+        {
+            "name": "Lithium",
+            "buy": 0,
+            "sell": "1886"
+        },
+        {
+            "name": "Osmium",
+            "buy": 0,
+            "sell": "7545"
+        },
+        {
+            "name": "Palladium",
+            "buy": 0,
+            "sell": "14165"
+        },
+        {
+            "name": "Platinum",
+            "buy": 0,
+            "sell": "19810"
+        },
+        {
+            "name": "Silver",
+            "buy": 0,
+            "sell": "5408"
+        },
+        {
+            "name": "Tantalum",
+            "buy": 0,
+            "sell": "4501"
+        },
+        {
+            "name": "Painite",
+            "buy": 0,
+            "sell": 0
+        },
+        {
+            "name": "Titanium",
+            "buy": "903",
+            "sell": "879"
+        },
+        {
+            "name": "Uranium",
+            "buy": 0,
+            "sell": "2619"
+        },
+        {
+            "name": "Bauxite",
+            "buy": 0,
+            "sell": "153"
+        },
+        {
+            "name": "Bertrandite",
+            "buy": 0,
+            "sell": "2454"
+        },
+        {
+            "name": "Coltan",
+            "buy": 0,
+            "sell": "1379"
+        },
+        {
+            "name": "Gallite",
+            "buy": 0,
+            "sell": "2158"
+        },
+        {
+            "name": "Indite",
+            "buy": 0,
+            "sell": "2173"
+        },
+        {
+            "name": "Lepidolite",
+            "buy": 0,
+            "sell": "593"
+        },
+        {
+            "name": "Painite",
+            "buy": 0,
+            "sell": 0
+        },
+        {
+            "name": "Rutile",
+            "buy": 0,
+            "sell": "332"
+        },
+        {
+            "name": "Urnainite",
+            "buy": 0,
+            "sell": "895"
+        },
+        {
+            "name": "Sap 8 Core Container",
+            "buy": 0,
+            "sell": "60360"
+        },
+        {
+            "name": "Imperial Slaves",
+            "buy": 0,
+            "sell": 0
+        },
+        {
+            "name": "Advanced Catalysers",
+            "buy": "2746",
+            "sell": "2711"
+        },
+        {
+            "name": "Animal Monitors",
+            "buy": "182",
+            "sell": "170"
+        },
+        {
+            "name": "Aquaponic Systems",
+            "buy": "161",
+            "sell": "149"
+        },
+        {
+            "name": "Auto-Fabricators",
+            "buy": "3531",
+            "sell": "3499"
+        },
+        {
+            "name": "Bioreducing Lichen",
+            "buy": "915",
+            "sell": "890"
+        },
+        {
+            "name": "Computer Components",
+            "buy": 0,
+            "sell": "673"
+        },
+        {
+            "name": "H.E. Suits",
+            "buy": "211",
+            "sell": "196"
+        },
+        {
+            "name": "Land Enrichment Systems",
+            "buy": "4313",
+            "sell": "4260"
+        },
+        {
+            "name": "Resonating Separators",
+            "buy": "5755",
+            "sell": "5686"
+        },
+        {
+            "name": "Robotics",
+            "buy": "1649",
+            "sell": "1608"
+        },
+        {
+            "name": "Leather",
+            "buy": 0,
+            "sell": 0
+        },
+        {
+            "name": "Natural Fabrics",
+            "buy": 0,
+            "sell": 0
+        },
+        {
+            "name": "Synthetic Fabrics",
+            "buy": "113",
+            "sell": "101"
+        },
+        {
+            "name": "Biowaste",
+            "buy": "14",
+            "sell": "11"
+        },
+        {
+            "name": "Chemical Waste",
+            "buy": 0,
+            "sell": "108"
+        },
+        {
+            "name": "Scrap",
+            "buy": "46",
+            "sell": "40"
+        },
+        {
+            "name": "Battle Weapons",
+            "buy": 0,
+            "sell": 0
+        },
+        {
+            "name": "Non-lethal Weapons",
+            "buy": "1495",
+            "sell": "1457"
+        },
+        {
+            "name": "Personal Weapons",
+            "buy": "0",
+            "sell": "0"
+        },
+        {
+            "name": "Reactive Armour",
+            "buy": "1893",
+            "sell": "1869"
+        }
+    ]
+}

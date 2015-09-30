@@ -1,0 +1,4 @@
+{
+    "stations": [ "isherwood_gateway", "compton_hub" ],
+    "type" : [ "agriculture", "industrial" ]
+}

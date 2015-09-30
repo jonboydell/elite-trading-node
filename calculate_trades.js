@@ -4,7 +4,10 @@ var readline = require('readline');
 var rl = readline.createInterface(process.stdin, process.stdout);
 var markets = load_markets("./market");
 var systems = load_systems("./system");
-var routes = require("./routes.json");
+var routes = require("./routes_array.json");
+var spacing = require("./spacing.js");
+
+
 
 var cargo = 4;
 var capital = 1000;
@@ -41,9 +44,9 @@ rl.on('line', function(line) {
             }
 
             console.log("%s",
-                space_out("location", 25),
-                space_out("buy", 10),
-                space_out("sell", 10));
+                spacing.space_out("location", 25),
+                spacing.space_out("buy", 10),
+                spacing.space_out("sell", 10));
 
             console.log("----------------------------------------");
 
@@ -52,9 +55,9 @@ rl.on('line', function(line) {
                 for (commodity of location_prices.keys()) {
                     if(input_commodity == commodity) {
                         console.log("%s",
-                            space_out(location, 25),
-                            space_out(location_prices.get(commodity).buy, 10),
-                            space_out(location_prices.get(commodity).sell, 10));
+                            spacing.space_out(location, 25),
+                            spacing.space_out(location_prices.get(commodity).buy, 10),
+                            spacing.space_out(location_prices.get(commodity).sell, 10));
                     }
                 }
             }
@@ -65,18 +68,18 @@ rl.on('line', function(line) {
             if (market_exists(location, function() {
                 var location_prices = markets.get(location);
                 console.log("%s",
-                    space_out("commodity", 25),
-                    space_out("buy", 10),
-                    space_out("sell", 10));
+                    spacing.space_out("commodity", 25),
+                    spacing.space_out("buy", 10),
+                    spacing.space_out("sell", 10));
 
                 console.log("----------------------------------------");
 
                 for (commodity of location_prices.keys()) {
                     if (location_prices.get(commodity).buy > 0 ) {
                         console.log("%s",
-                            space_out(commodity, 25),
-                            space_out(location_prices.get(commodity).buy, 10),
-                            space_out(location_prices.get(commodity).sell, 10));
+                            spacing.space_out(commodity, 25),
+                            spacing.space_out(location_prices.get(commodity).buy, 10),
+                            spacing.space_out(location_prices.get(commodity).sell, 10));
                     }
                 }
             }));
@@ -87,18 +90,18 @@ rl.on('line', function(line) {
             if (market_exists(location, function() {
                 var location_prices = markets.get(location);
                 console.log("%s",
-                    space_out("commodity", 25),
-                    space_out("buy", 10),
-                    space_out("sell", 10));
+                    spacing.space_out("commodity", 25),
+                    spacing.space_out("buy", 10),
+                    spacing.space_out("sell", 10));
 
                 console.log("----------------------------------------");
 
                 for (commodity of location_prices.keys()) {
                     if (location_prices.get(commodity).sell > 0 ) {
                         console.log("%s",
-                            space_out(commodity, 25),
-                            space_out(location_prices.get(commodity).buy, 10),
-                            space_out(location_prices.get(commodity).sell, 10));                    }
+                            spacing.space_out(commodity, 25),
+                            spacing.space_out(location_prices.get(commodity).buy, 10),
+                            spacing.space_out(location_prices.get(commodity).sell, 10));                    }
                 }
             }));
         } else {
@@ -212,42 +215,16 @@ function print_status() {
     console.log("capital:"+capital);
 }
 
-function print_recommendation(recommendation, cargo) {
-    if(recommendation.location) {
-        console.log("%s->%s %s (b:%d, s:%d)",
-                recommendation.location,
-                recommendation.destination,
-                recommendation.commodity,
-                recommendation.buy,
-                recommendation.sell,
-                recommendation.buy * cargo,
-                recommendation.sell * cargo,
-                recommendation.max_price_delta * cargo
-        );
-    }
-}
-
-function space_out(str, column_length) {
-    str = ""+str;
-    var n = column_length - str.length;
-    var x = "";
-    for (var i = 0; i < n; i++)
-    {
-        x = x + " ";
-    }
-    return str + x;
-}
-
 function pretty_print_headers() {
-    console.log("%s%s%s",
-            space_out("location", 40),
-            space_out("destination", 40),
-            space_out("commodity", 20),
-            space_out("buy", 8),
-            space_out("sell", 8),
-            space_out("total buy", 10),
-            space_out("total sell", 10),
-            space_out("profit", 8)
+    console.log("%s%s%s%s%s%s%s%s",
+            spacing.space_out("location", 40),
+            spacing.space_out("destination", 40),
+            spacing.space_out("commodity", 20),
+            spacing.space_out("buy", 8),
+            spacing.space_out("sell", 8),
+            spacing.space_out("total buy", 10),
+            spacing.space_out("total sell", 10),
+            spacing.space_out("profit", 8)
     );
     console.log("------------------------------------------------------------------------------------------------------------");
 }
@@ -256,21 +233,29 @@ function pretty_print_recommendation(recommendation, cargo) {
 
     if(recommendation.location) {
 
+        var route_list = [];
+
+        var route_finder = require("./route.js")
+        route_finder.init(routes);
+        route_finder.route(
+            systems.get(recommendation.location),
+            systems.get(recommendation.destination),
+            route_list);
+
         var total_buy_value = recommendation.buy * cargo;
         var total_sell_value = recommendation.sell * cargo;
         var total_profit = recommendation.max_price_delta * cargo;
 
-        console.log("%s%s%s",
-                space_out(recommendation.location + " " + systems.get(recommendation.location), 40),
-                space_out(recommendation.destination + " " + systems.get(recommendation.destination), 40),
-                space_out(recommendation.commodity, 20),
-                space_out(recommendation.buy, 8),
-                space_out(recommendation.sell, 8),
-                space_out(total_buy_value, 10),
-                space_out(total_sell_value, 10),
-                space_out(total_profit, 8)
+        console.log("%s%s%s%s%s%s%s%s",
+                //spacing.space_out(recommendation.location + " " + systems.get(recommendation.location), 40),
+                spacing.space_out(recommendation.destination + " " + systems.get(recommendation.destination), 40),
+                spacing.space_out(route_list.length + " ", 5),
+                spacing.space_out(recommendation.commodity, 20),
+                spacing.space_out(recommendation.buy, 8),
+                spacing.space_out(recommendation.sell, 8),
+                spacing.space_out(total_buy_value, 10),
+                spacing.space_out(total_sell_value, 10),
+                spacing.space_out(total_profit, 8)
         );
-
     }
-
 }

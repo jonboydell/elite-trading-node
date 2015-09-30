@@ -5,12 +5,10 @@
     ["alrai sector kh-v b2-1", "kini"],
     ["kini", "frigaha"],
     ["kremainn", "alrai sector mc-v b2-7"],
-    ["alrai sector mc-v b2-7", "potriti"],
-    ["potriti", "yakabugai"],
+    ["alrai sector mc-v b2-7", "portiri"],
+    ["portiri", "yakabugai"],
     ["eravate", "kini"],
     ["yakabugai", "chamunda"],
     ["ekonir", "alrai sector kh-v b2-7"],
-    ["eravate", "alrai sector kh-v b2-7"],
-    ["zeta aquilae", "v1688 aquilae"],
-    ["lft-1448", "v1688 aquilae"]
+    ["eravate", "alrai sector kh-v b2-7"]
 ]
